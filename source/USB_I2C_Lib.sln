@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1340
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "USB_I2C_Lib", "USB_I2C_Lib\USB_I2C_Lib.csproj", "{8BD6B90B-DB06-43E2-89B1-D6DF180FD907}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{72625297-0D73-4FED-BF41-8B3C6AE3BD9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsbI2cControlPanel", "UsbI2cControlPanel\UsbI2cControlPanel.csproj", "{5419F051-E05F-4336-A3CE-62746A346438}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BD6B90B-DB06-43E2-89B1-D6DF180FD907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BD6B90B-DB06-43E2-89B1-D6DF180FD907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BD6B90B-DB06-43E2-89B1-D6DF180FD907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BD6B90B-DB06-43E2-89B1-D6DF180FD907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72625297-0D73-4FED-BF41-8B3C6AE3BD9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72625297-0D73-4FED-BF41-8B3C6AE3BD9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72625297-0D73-4FED-BF41-8B3C6AE3BD9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72625297-0D73-4FED-BF41-8B3C6AE3BD9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5419F051-E05F-4336-A3CE-62746A346438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5419F051-E05F-4336-A3CE-62746A346438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5419F051-E05F-4336-A3CE-62746A346438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5419F051-E05F-4336-A3CE-62746A346438}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2BE9909D-8596-47BB-8826-4360D7DB11DC}
+	EndGlobalSection
+EndGlobal

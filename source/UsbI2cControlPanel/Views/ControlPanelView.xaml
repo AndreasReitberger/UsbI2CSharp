@@ -1,0 +1,718 @@
+﻿<UserControl x:Class="UsbI2cControlPanel.Views.ControlPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             
+             xmlns:local="clr-namespace:UsbI2cControlPanel.Views"
+             xmlns:ViewModels="clr-namespace:UsbI2cControlPanel.ViewModels"
+             xmlns:Converters="clr-namespace:UsbI2cControlPanel.Converters"
+             
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance ViewModels:ControlPanelViewModel }"
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
+    <UserControl.Resources>
+        <Converters:BooleanReverseConverter x:Key="BooleanReverseConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Control -->
+        <Grid
+            Grid.ColumnSpan="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Text="Device: "
+                Margin="4,2"
+                VerticalAlignment="Center"
+            />
+            
+            <ComboBox
+                Grid.Column="1"
+                Margin="4,2"
+                SelectedItem="{Binding Device, Mode=TwoWay}"
+                ItemsSource="{Binding Devices}"
+                DisplayMemberPath="SerialNumber"
+                IsEnabled="{Binding IsConnected, Converter={StaticResource BooleanReverseConverter}}"
+                />
+
+            <TextBlock
+                Grid.Column="2"
+                Text="Slave Address: "
+                Margin="4,2"
+                VerticalAlignment="Center"
+            />
+            <mah:NumericUpDown
+                Grid.Column="3"
+                MinWidth="128"
+                Value="{Binding SlaveAddress}"
+                Margin="4,2"
+                Minimum="0"
+                />
+
+            <Button
+                Grid.Column="4"
+                Margin="4,2"
+                Content="Refresh"
+                Command="{Binding RefreshUsbDevicesCommand}"
+                />
+
+            <Button
+                Grid.Column="5"
+                Margin="4,2"
+                >
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Setter Property="Content" Value="Connect"/>
+                        <Setter Property="Command" Value="{Binding ConnectToUsbDeviceCommand}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                                <Setter Property="Content" Value="Disconnect"/>
+                                <Setter Property="Command" Value="{Binding DisonnectToUsbDeviceCommand}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Devices.Count}" Value="0">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Device}" Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+        
+        <!-- Swtiches -->
+        <!-- Byte0 -->
+        <GroupBox
+            IsEnabled="{Binding IsConnected}"
+            Grid.Row="1"
+            Margin="4,2"
+            Header="Port A (0-7)"
+            >
+            <StackPanel
+                Margin="2">
+                <!-- Bit 0 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb0"
+                        IsChecked="{Binding Bit0_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb0, Path=IsChecked}"
+                        IsOn="{Binding Bit0}"
+                        />
+                </DockPanel>
+                <!-- Bit 1 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb1"
+                        IsChecked="{Binding Bit1_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb1, Path=IsChecked}"
+                        IsOn="{Binding Bit1}"
+                        />
+                </DockPanel>
+                <!-- Bit 2 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb2"
+                        IsChecked="{Binding Bit2_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb2, Path=IsChecked}"
+                        IsOn="{Binding Bit2}"
+                        />
+                </DockPanel>
+                <!-- Bit 3 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb3"
+                        IsChecked="{Binding Bit3_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb3, Path=IsChecked}"
+                        IsOn="{Binding Bit3}"
+                        />
+                </DockPanel>
+                <!-- Bit 4 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb4"
+                        IsChecked="{Binding Bit4_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb4, Path=IsChecked}"
+                        IsOn="{Binding Bit4}"
+                        />
+                </DockPanel>
+                <!-- Bit 5 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb5"
+                        IsChecked="{Binding Bit5_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb5, Path=IsChecked}"
+                        IsOn="{Binding Bit5}"
+                        />
+                </DockPanel>
+                <!-- Bit 6 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb6"
+                        IsChecked="{Binding Bit6_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb6, Path=IsChecked}"
+                        IsOn="{Binding Bit6}"
+                        />
+                </DockPanel>
+                <!-- Bit 7 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb7"
+                        IsChecked="{Binding Bit7_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb7, Path=IsChecked}"
+                        IsOn="{Binding Bit7}"
+                        />
+                </DockPanel>
+                <!-- Enable all button -->
+                <Button
+                    Margin="4,2"
+                    Content="Set all"
+                    Command="{Binding SetResetPortCommand}"
+                    CommandParameter="a|set"
+                    />
+                <!-- Disable all button -->
+                <Button
+                    Margin="4,2"
+                    Content="Reset all"
+                    Command="{Binding SetResetPortCommand}"
+                    CommandParameter="a|reset"
+                    />
+            </StackPanel>
+        </GroupBox>
+        <!-- Byte1 -->
+        <GroupBox
+            IsEnabled="{Binding IsConnected}"
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="4,2"
+            Header="Port B (8-15)"
+            >
+            <StackPanel
+                Margin="2">
+                <!-- Bit 0 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb8"
+                        IsChecked="{Binding Bit8_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb8, Path=IsChecked}"
+                        IsOn="{Binding Bit8}"
+                        />
+                </DockPanel>
+                <!-- Bit 1 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb9"
+                        IsChecked="{Binding Bit9_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb9, Path=IsChecked}"
+                        IsOn="{Binding Bit9}"
+                        />
+                </DockPanel>
+                <!-- Bit 2 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb10"
+                        IsChecked="{Binding Bit10_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb10, Path=IsChecked}"
+                        IsOn="{Binding Bit10}"
+                        />
+                </DockPanel>
+                <!-- Bit 3 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb11"
+                        IsChecked="{Binding Bit11_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb11, Path=IsChecked}"
+                        IsOn="{Binding Bit11}"
+                        />
+                </DockPanel>
+                <!-- Bit 4 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb12"
+                        IsChecked="{Binding Bit12_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb12, Path=IsChecked}"
+                        IsOn="{Binding Bit12}"
+                        />
+                </DockPanel>
+                <!-- Bit 5 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb13"
+                        IsChecked="{Binding Bit13_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb13, Path=IsChecked}"
+                        IsOn="{Binding Bit13}"
+                        />
+                </DockPanel>
+                <!-- Bit 6 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb14"
+                        IsChecked="{Binding Bit14_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb14, Path=IsChecked}"
+                        IsOn="{Binding Bit14}"
+                        />
+                </DockPanel>
+                <!-- Bit 7 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb15"
+                        IsChecked="{Binding Bit15_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb15, Path=IsChecked}"
+                        IsOn="{Binding Bit15}"
+                        />
+                </DockPanel>
+                <!-- Enable all button -->
+                <Button
+                    Margin="4,2"
+                    Content="Set all"
+                    Command="{Binding SetResetPortCommand}"
+                    CommandParameter="b|set"
+                    />
+                <!-- Disable all button -->
+                <Button
+                    Margin="4,2"
+                    Content="Reset all"
+                    Command="{Binding SetResetPortCommand}"
+                    CommandParameter="b|reset"
+                    />
+            </StackPanel>
+        </GroupBox>
+        <!-- Byte2 -->
+        <GroupBox
+            IsEnabled="{Binding IsConnected}"
+            Grid.Row="1"
+            Grid.Column="2"
+            Margin="4,2"
+            Header="Port C (16-23)"
+            >
+            <StackPanel
+                Margin="2">
+                <!-- Bit 0 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb16"
+                        IsChecked="{Binding Bit16_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb16, Path=IsChecked}"
+                        IsOn="{Binding Bit16}"
+                        />
+                </DockPanel>
+                <!-- Bit 1 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb17"
+                        IsChecked="{Binding Bit17_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb17, Path=IsChecked}"
+                        IsOn="{Binding Bit17}"
+                        />
+                </DockPanel>
+                <!-- Bit 2 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb18"
+                        IsChecked="{Binding Bit18_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb18, Path=IsChecked}"
+                        IsOn="{Binding Bit18}"
+                        />
+                </DockPanel>
+                <!-- Bit 3 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb19"
+                        IsChecked="{Binding Bit19_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb19, Path=IsChecked}"
+                        IsOn="{Binding Bit19}"
+                        />
+                </DockPanel>
+                <!-- Bit 4 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb20"
+                        IsChecked="{Binding Bit20_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb20, Path=IsChecked}"
+                        IsOn="{Binding Bit20}"
+                        />
+                </DockPanel>
+                <!-- Bit 5 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb21"
+                        IsChecked="{Binding Bit21_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb21, Path=IsChecked}"
+                        IsOn="{Binding Bit21}"
+                        />
+                </DockPanel>
+                <!-- Bit 6 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb22"
+                        IsChecked="{Binding Bit22_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb22, Path=IsChecked}"
+                        IsOn="{Binding Bit22}"
+                        />
+                </DockPanel>
+                <!-- Bit 7 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb23"
+                        IsChecked="{Binding Bit23_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb23, Path=IsChecked}"
+                        IsOn="{Binding Bit23}"
+                        />
+                </DockPanel>
+                <!-- Enable all button -->
+                <Button
+                    Margin="4,2"
+                    Content="Set all"
+                    Command="{Binding SetResetPortCommand}"
+                    CommandParameter="c|set"
+                    />
+                <!-- Disable all button -->
+                <Button
+                    Margin="4,2"
+                    Content="Reset all"
+                    Command="{Binding SetResetPortCommand}"
+                    CommandParameter="c|reset"
+                    />
+            </StackPanel>
+        </GroupBox>
+        <!-- Byte3 -->
+        <GroupBox
+            IsEnabled="{Binding IsConnected}"
+            Grid.Row="1"
+            Grid.Column="3"
+            Margin="4,2"
+            Header="Port D (24-31)"
+            >
+            <StackPanel
+                Margin="2">
+                <!-- Bit 0 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb24"
+                        IsChecked="{Binding Bit24_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb24, Path=IsChecked}"
+                        IsOn="{Binding Bit24}"
+                        />
+                </DockPanel>
+                <!-- Bit 1 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb25"
+                        IsChecked="{Binding Bit25_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb25, Path=IsChecked}"
+                        IsOn="{Binding Bit25}"
+                        />
+                </DockPanel>
+                <!-- Bit 2 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb26"
+                        IsChecked="{Binding Bit26_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb26, Path=IsChecked}"
+                        IsOn="{Binding Bit26}"
+                        />
+                </DockPanel>
+                <!-- Bit 3 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb27"
+                        IsChecked="{Binding Bit27_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb27, Path=IsChecked}"
+                        IsOn="{Binding Bit27}"
+                        />
+                </DockPanel>
+                <!-- Bit 4 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb28"
+                        IsChecked="{Binding Bit28_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb28, Path=IsChecked}"
+                        IsOn="{Binding Bit28}"
+                        />
+                </DockPanel>
+                <!-- Bit 5 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb29"
+                        IsChecked="{Binding Bit29_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb29, Path=IsChecked}"
+                        IsOn="{Binding Bit29}"
+                        />
+                </DockPanel>
+                <!-- Bit 6 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb30"
+                        IsChecked="{Binding Bit30_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb30, Path=IsChecked}"
+                        IsOn="{Binding Bit30}"
+                        />
+                </DockPanel>
+                <!-- Bit 7 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb31"
+                        IsChecked="{Binding Bit31_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb31, Path=IsChecked}"
+                        IsOn="{Binding Bit31}"
+                        />
+                </DockPanel>
+                <!-- Enable all button -->
+                <Button
+                    Margin="4,2"
+                    Content="Set all"
+                    Command="{Binding SetResetPortCommand}"
+                    CommandParameter="d|set"
+                    />
+                <!-- Disable all button -->
+                <Button
+                    Margin="4,2"
+                    Content="Reset all"
+                    Command="{Binding SetResetPortCommand}"
+                    CommandParameter="d|reset"
+                    />
+            </StackPanel>
+        </GroupBox>
+        <!-- Byte4 -->
+        <GroupBox
+            IsEnabled="{Binding IsConnected}"
+            Grid.Row="1"
+            Grid.Column="4"
+            Margin="4,2"
+            Header="Port E (32-39)"
+            >
+            <StackPanel
+                Margin="2">
+                <!-- Bit 0 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb32"
+                        IsChecked="{Binding Bit32_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb32, Path=IsChecked}"
+                        IsOn="{Binding Bit32}"
+                        />
+                </DockPanel>
+                <!-- Bit 1 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb33"
+                        IsChecked="{Binding Bit33_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb33, Path=IsChecked}"
+                        IsOn="{Binding Bit33}"
+                        />
+                </DockPanel>
+                <!-- Bit 2 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb34"
+                        IsChecked="{Binding Bit34_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb34, Path=IsChecked}"
+                        IsOn="{Binding Bit34}"
+                        />
+                </DockPanel>
+                <!-- Bit 3 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb35"
+                        IsChecked="{Binding Bit35_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb35, Path=IsChecked}"
+                        IsOn="{Binding Bit35}"
+                        />
+                </DockPanel>
+                <!-- Bit 4 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb36"
+                        IsChecked="{Binding Bit36_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb36, Path=IsChecked}"
+                        IsOn="{Binding Bit36}"
+                        />
+                </DockPanel>
+                <!-- Bit 5 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb37"
+                        IsChecked="{Binding Bit37_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb37, Path=IsChecked}"
+                        IsOn="{Binding Bit37}"
+                        />
+                </DockPanel>
+                <!-- Bit 6 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb38"
+                        IsChecked="{Binding Bit38_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb38, Path=IsChecked}"
+                        IsOn="{Binding Bit38}"
+                        />
+                </DockPanel>
+                <!-- Bit 7 -->
+                <DockPanel>
+                    <CheckBox
+                        x:Name="ckb39"
+                        IsChecked="{Binding Bit39_Enabled}"
+                        />
+                    <mah:ToggleSwitch
+                        IsEnabled="{Binding ElementName=ckb39, Path=IsChecked}"
+                        IsOn="{Binding Bit39}"
+                        />
+                </DockPanel>
+                <!-- Enable all button -->
+                <Button
+                    Margin="4,2"
+                    Content="Set all"
+                    Command="{Binding SetResetPortCommand}"
+                    CommandParameter="e|set"
+                    />
+                <!-- Disable all button -->
+                <Button
+                    Margin="4,2"
+                    Content="Reset all"
+                    Command="{Binding SetResetPortCommand}"
+                    CommandParameter="e|reset"
+                    />
+            </StackPanel>
+        </GroupBox>
+        
+        <!-- Read button -->
+        <Button
+            Grid.Row="2"
+            Margin="4,2"
+            Content="Read output"
+            Command="{Binding ReadOutputFromUsbCommand}"
+            />
+        
+        <!-- Enable all button -->
+        <Button
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="4,2"
+            Content="Enable all ports"
+            Command="{Binding EnableDisableAllPortsCommand}"
+            CommandParameter="set"
+            />
+        
+        <!-- Disable all button -->
+        <Button
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="4,2"
+            Content="Disable all ports"
+            Command="{Binding EnableDisableAllPortsCommand}"
+            CommandParameter="reset"
+            />
+        
+        <!-- Send button -->
+        <Button
+            Grid.Row="2"
+            Grid.Column="4"
+            Margin="4,2"
+            Content="Send"
+            Command="{Binding SendBitsToUsbCommand}"
+            Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
+            mah:ControlsHelper.ContentCharacterCasing="Upper"
+            />
+    </Grid>
+</UserControl>
