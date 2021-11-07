@@ -25,7 +25,7 @@ namespace USB_I2C_Lib.Models
         public UsbI2cByte() { }
         public UsbI2cByte(bool initialState)
         {
-            if(initialState)
+            if (initialState)
             {
                 Bit0 = UsbI2cBit.Set;
                 Bit1 = UsbI2cBit.Set;
@@ -90,7 +90,7 @@ namespace USB_I2C_Lib.Models
 
         public void UpdateFromArray(UsbI2cBit[] array)
         {
-            for(int i = 0; i < array?.Length; i++)
+            for (int i = 0; i < array?.Length; i++)
             {
                 switch (i)
                 {

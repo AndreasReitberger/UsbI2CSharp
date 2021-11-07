@@ -60,7 +60,7 @@ namespace USB_I2C_Lib
         #endregion
 
         #region Properties
-        UsbI2cTypes _type = UsbI2cTypes.FT232RL; 
+        UsbI2cTypes _type = UsbI2cTypes.FT232RL;
         public UsbI2cTypes Type
         {
             get => _type;
@@ -285,12 +285,12 @@ namespace USB_I2C_Lib
 
             // Open device by index
             ftStatus = _handler.OpenByIndex(index);
-            if(ftStatus != FTDI.FT_STATUS.FT_OK)
+            if (ftStatus != FTDI.FT_STATUS.FT_OK)
             {
                 return false;
             }
             var eeprom = ReadEEPROM(Type);
-            if(eeprom != null)
+            if (eeprom != null)
             {
                 EEPROM = eeprom;
                 Manufacturer = EEPROM.Manufacturer;
@@ -322,7 +322,7 @@ namespace USB_I2C_Lib
 
             // Open device by index
             ftStatus = _handler.OpenBySerialNumber(serialNumber);
-            if(ftStatus != FTDI.FT_STATUS.FT_OK)
+            if (ftStatus != FTDI.FT_STATUS.FT_OK)
             {
                 return false;
             }
@@ -344,7 +344,7 @@ namespace USB_I2C_Lib
             //return result == 0;
             return true;
         }
-        
+
         public bool Close()
         {
             FTDI.FT_STATUS? result = _handler?.Close();
@@ -372,14 +372,14 @@ namespace USB_I2C_Lib
                 throw;
             }
         }
-        
+
         public List<UsbI2cDevice> GetAllDevices(int maxBufferSize = 10)
         {
             List<FTDI.FT_DEVICE_INFO_NODE> nodes = GetAllDeviceNodes(maxBufferSize);
             return nodes?
                 .Select(node => new UsbI2cDevice()
                 {
-                    
+
                     Id = (int)node.ID,
                     SerialNumber = node.SerialNumber,
                     Type = node.Type.ToString(),
@@ -486,7 +486,7 @@ namespace USB_I2C_Lib
             buffer.AddRange(Encoding.ASCII.GetBytes("S"));
             buffer.AddRange(Encoding.ASCII.GetBytes(addressString));    // Add addresss
             buffer.AddRange(Encoding.ASCII.GetBytes(lengthString));     // Add length
-            for(int i = 0; i < data.Length; i ++)
+            for (int i = 0; i < data.Length; i++)
             {
                 buffer.Add(data[i]);
             }
@@ -495,14 +495,14 @@ namespace USB_I2C_Lib
             return Write(buffer.ToArray());
         }
         public bool WriteReadDataOutput(
-            uint slaveAddress, 
-            uint address, 
-            byte port_a, 
-            byte port_b, 
-            byte port_c, 
-            byte port_d, 
-            byte port_e, 
-            byte[] readBuffer, 
+            uint slaveAddress,
+            uint address,
+            byte port_a,
+            byte port_b,
+            byte port_c,
+            byte port_d,
+            byte port_e,
+            byte[] readBuffer,
             uint bytesToRead)
         {
             byte[] data = new byte[]
@@ -543,11 +543,11 @@ namespace USB_I2C_Lib
             buffer.AddRange(Encoding.ASCII.GetBytes("P"));
 
             bool result = Write(buffer.ToArray());
-            if(result)
+            if (result)
             {
                 uint bytesAvailable = 0;
                 FTDI.FT_STATUS resultHandler = _handler.GetRxBytesAvailable(ref bytesAvailable);
-                if(resultHandler == FTDI.FT_STATUS.FT_OK && bytesAvailable > 0)
+                if (resultHandler == FTDI.FT_STATUS.FT_OK && bytesAvailable > 0)
                 {
                     uint bytesRead = 0;
                     //byte[] buffer = new byte[bytesToRead + 1];
@@ -571,7 +571,7 @@ namespace USB_I2C_Lib
                 return true;
         }
         #endregion
-        
+
         #region Reset
         public void Reset(uint slaveAddress)
         {
@@ -645,12 +645,12 @@ namespace USB_I2C_Lib
             return SetOutput(slaveAddress, registerAddress, ports[0], ports[1], ports[2], ports[3], ports[4]);
         }
 
-        public bool SetOutput(uint slaveAddress, uint registerAddress, 
-            UsbI2cByte portA, 
-            UsbI2cByte portB,  
-            UsbI2cByte portC, 
-            UsbI2cByte portD, 
-            UsbI2cByte portE 
+        public bool SetOutput(uint slaveAddress, uint registerAddress,
+            UsbI2cByte portA,
+            UsbI2cByte portB,
+            UsbI2cByte portC,
+            UsbI2cByte portD,
+            UsbI2cByte portE
             )
         {
             byte[] dataBuffer = new byte[7];
@@ -663,7 +663,7 @@ namespace USB_I2C_Lib
             byte portDConverted = TristateByteToByte(portD, dataBuffer[5]);
             byte portEConverted = TristateByteToByte(portE, dataBuffer[6]);
             // Write new data to output
-            return WriteOutput(slaveAddress, (byte)registerAddress, 
+            return WriteOutput(slaveAddress, (byte)registerAddress,
                 portAConverted,
                 portBConverted,
                 portCConverted,
@@ -721,7 +721,7 @@ namespace USB_I2C_Lib
             FTDI.FT_STATUS res = _handler.OpenBySerialNumber(device?.SerialNumber);
             return res == FTDI.FT_STATUS.FT_OK;
         }
-        
+
         void ConfigureHandler()
         {
             string port;
@@ -823,7 +823,7 @@ namespace USB_I2C_Lib
             else
                 return 0;   // success
         }
-        
+
         bool Write(byte[] writeBuffer)
         {
             uint bytesWritten = 0;
@@ -870,16 +870,16 @@ namespace USB_I2C_Lib
             BitArray currentByte = new BitArray(new byte[] { currentValue });
             UsbI2cBit[] mask = tristateByte.ToArray();
 
-            for(int i = 0; i < currentByte.Length; i++)
+            for (int i = 0; i < currentByte.Length; i++)
             {
                 var bit = currentByte[i];
                 var target = mask[i];
-                if(target == UsbI2cBit.Reset)
+                if (target == UsbI2cBit.Reset)
                 {
                     // Reset = low
-                    conversionByte[i] = swap ? true:  false;
+                    conversionByte[i] = swap ? true : false;
                 }
-                else if(target == UsbI2cBit.Set)
+                else if (target == UsbI2cBit.Set)
                 {
                     // Set = high
                     conversionByte[i] = swap ? false : true;
