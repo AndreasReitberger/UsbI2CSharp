@@ -1054,8 +1054,8 @@ namespace UsbI2cControlPanel.ViewModels
             try
             {
                 IsWorking = true;
-                if(Device != null && handler.Initialize(Device.SerialNumber))
-                { 
+                if (Device != null && handler.Initialize(Device.SerialNumber))
+                {
                     //string teststr = "S@ˆ";
                     // SlaveAddresss 32
                     handler.Reset(32);
@@ -1372,7 +1372,7 @@ namespace UsbI2cControlPanel.ViewModels
                     slaveAddress: SlaveAddress,
                     registerAddress: 128 + (uint)UsbI2cRegisters.OutputPort);
                 // Skip first two bytes
-                for(int i = 2; i < output.Length; i++)
+                for (int i = 2; i < output.Length; i++)
                 {
                     BitArray temp = new BitArray(new byte[] { output[i] });
                     switch (i)

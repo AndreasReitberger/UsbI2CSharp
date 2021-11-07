@@ -14,7 +14,7 @@ namespace Test
         {
             USBI2CLib handler = new USBI2CLib(UsbI2cTypes.FT232RL);
             List<UsbI2cDevice> devices = handler.GetAllDevices();
-            if(devices.Count == 0)
+            if (devices.Count == 0)
             {
                 Assert.Fail("No usb device connected!");
                 return;
@@ -73,7 +73,7 @@ namespace Test
             {
                 Assert.Fail("Initialize failed");
             }
-            
+
         }
     }
 }
