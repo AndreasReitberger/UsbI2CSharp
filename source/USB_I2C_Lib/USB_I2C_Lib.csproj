@@ -2,11 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>UsbI2CSharp</PackageId>
+    <Authors>Andreas Reitberger</Authors>
+    <Description>A C# library to communicate with a USB-to-I2C converter</Description>
+    <Product>UsbI2CSharp</Product>
+    <Copyright>Andreas Reitberger</Copyright>
+    <RepositoryUrl>https://github.com/AndreasReitberger/UsbI2CSharp</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="FTD2XX_NET">
-      <HintPath>..\..\..\dll\FTD2XX_NET.dll</HintPath>
+      <HintPath>..\..\FTD2XX_NET\FTD2XX_NET.dll</HintPath>
     </Reference>
   </ItemGroup>
 
