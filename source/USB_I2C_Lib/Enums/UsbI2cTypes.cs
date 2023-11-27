@@ -1,4 +1,4 @@
-﻿namespace USB_I2C_Lib.Enums
+﻿namespace AndreasReitberger.Interface.UsbI2C.Enums
 {
     public enum UsbI2cTypes
     {

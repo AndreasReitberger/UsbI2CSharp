@@ -1,7 +1,7 @@
 ﻿using System.Collections;
-using USB_I2C_Lib.Enums;
+using AndreasReitberger.Interface.UsbI2C.Enums;
 
-namespace USB_I2C_Lib.Models
+namespace AndreasReitberger.Interface.UsbI2C.Models
 {
     public class UsbI2cByte
     {
