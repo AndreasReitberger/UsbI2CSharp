@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using USB_I2C_Lib.Enums;
-using USB_I2C_Lib.Models;
+using AndreasReitberger.Interface.UsbI2C.Enums;
+using AndreasReitberger.Interface.UsbI2C.Models;
 
-namespace USB_I2C_Lib
+namespace AndreasReitberger.Interface.UsbI2C
 {
     public class USBI2CLib
     {
@@ -264,6 +264,7 @@ namespace USB_I2C_Lib
         {
             Type = type;
         }
+
         #region Methods
 
         #region Public

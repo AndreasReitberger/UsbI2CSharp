@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace USB_I2C_Lib.Models
+namespace AndreasReitberger.Interface.UsbI2C.Models
 {
     public class EepromDefaultContent
     {
