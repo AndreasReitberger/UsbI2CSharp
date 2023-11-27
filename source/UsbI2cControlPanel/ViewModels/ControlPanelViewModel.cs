@@ -1,14 +1,10 @@
-﻿using AndreasReitberger.Interface.UsbI2C.Models;
+﻿using AndreasReitberger.Interface.UsbI2C;
+using AndreasReitberger.Interface.UsbI2C.Enums;
+using AndreasReitberger.Interface.UsbI2C.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using USB_I2C_Lib;
-using USB_I2C_Lib.Enums;
-using USB_I2C_Lib.Models;
 using UsbI2cControlPanel.Utilities;
 
 namespace UsbI2cControlPanel.ViewModels
