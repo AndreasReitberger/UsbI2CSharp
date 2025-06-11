@@ -13,6 +13,9 @@ namespace AndreasReitberger.Interface.UsbI2C
     public class USBI2CLib
     {
         #region Variables
+
+        readonly FTDI _handler = new ();
+
         // ###### I2C Library defines ######
         const byte I2C_Dir_SDAin_SCLin = 0x00;
         const byte I2C_Dir_SDAin_SCLout = 0x01;
@@ -258,12 +261,13 @@ namespace AndreasReitberger.Interface.UsbI2C
 
         #endregion
 
-        FTDI _handler = new FTDI();
+        #region Ctor
         public USBI2CLib() { }
         public USBI2CLib(UsbI2cTypes type)
         {
             Type = type;
         }
+        #endregion
 
         #region Methods
 
