@@ -2,6 +2,23 @@
 A library to communicate with the USB to UART IC FT232RL using the wrapper FTD2XX_NET.dll and
 a connected I2C controller (PCA9505D66).
 
+# Support me
+If you want to support me, you can order over following affilate links (I'll get a small share from your purchase from the corresponding store).
+
+- Prusa: http://www.prusa3d.com/#a_aid=AndreasReitberger *
+- Jake3D: https://tidd.ly/3x9JOBp * 
+- Amazon: https://amzn.to/2Z8PrDu *
+- Coinbase: https://advanced.coinbase.com/join/KTKSEBP * (10€ in BTC for you if you open an account)
+- TradeRepublic: https://refnocode.trade.re/wfnk80zm * (10€ in stocks for you if you open an account)
+
+(*) Affiliate link
+Thank you very much for supporting me!
+
+# Nuget MoonrakerRestApiSharp
+[![NuGet](https://img.shields.io/nuget/v/UsbI2CSharp.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/UsbI2CSharp/)
+[![NuGet](https://img.shields.io/nuget/dt/UsbI2CSharp.svg)](https://www.nuget.org/packages/UsbI2CSharp)
+
+
 # How to use
 In order to communicate with the `FT232RL`, create a new handler as shown below.
 
