@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "USB_I2C_Lib", "USB_I2C_Lib\USB_I2C_Lib.csproj", "{8BD6B90B-DB06-43E2-89B1-D6DF180FD907}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsbI2C", "UsbI2C\UsbI2C.csproj", "{8BD6B90B-DB06-43E2-89B1-D6DF180FD907}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsbI2cControlPanel", "UsbI2cControlPanel\UsbI2cControlPanel.csproj", "{5419F051-E05F-4336-A3CE-62746A346438}"
 EndProject

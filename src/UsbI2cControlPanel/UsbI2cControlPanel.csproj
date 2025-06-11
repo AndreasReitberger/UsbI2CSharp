@@ -5,12 +5,10 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+	<LangVersion>12</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Validators\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\USB_I2C_Lib\USB_I2C_Lib.csproj" />
+    <ProjectReference Include="..\UsbI2C\UsbI2C.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.7" />

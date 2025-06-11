@@ -28,7 +28,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           action: "fix"
           #only-changed-files: true # only works for PRs
-          workspace: "source/USB_I2C_Lib.sln"
+          workspace: "src/UsbI2C.sln"
     
       - name: Commit files
         if: steps.format.outputs.has-changes == 'true'
