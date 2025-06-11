@@ -1,8 +1,7 @@
-using AndreasReitberger.Interface.UsbI2C;
 using AndreasReitberger.Interface.UsbI2C.Enums;
 using AndreasReitberger.Interface.UsbI2C.Models;
 
-namespace UsbI2C.Test
+namespace AndreasReitberger.Interface.UsbI2C.Test
 {
     public class Tests
     {
@@ -47,7 +46,7 @@ namespace UsbI2C.Test
                        new UsbI2cByte(true),   // Port d
                        new UsbI2cByte(true)    // Port e
                        );
-                    Assert.IsTrue(setAll);
+                    Assert.That(setAll);
 
                     handler.SetOutput(
                        32,
@@ -68,9 +67,9 @@ namespace UsbI2C.Test
                         new UsbI2cByte(false),   // Port d
                         new UsbI2cByte(false)    // Port e
                         );
-                    Assert.IsTrue(keep);
+                    Assert.That(keep);
                     // Resett all
-                    Assert.IsTrue(handler.ClearOutput(32, address));
+                    Assert.That(handler.ClearOutput(32, address));
                     handler.Close();
                 }
                 else
