@@ -14,7 +14,7 @@ If you want to support me, you can order over following affilate links (I'll get
 (*) Affiliate link
 Thank you very much for supporting me!
 
-# Nuget MoonrakerRestApiSharp
+# Nuget
 [![NuGet](https://img.shields.io/nuget/v/UsbI2CSharp.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/UsbI2CSharp/)
 [![NuGet](https://img.shields.io/nuget/dt/UsbI2CSharp.svg)](https://www.nuget.org/packages/UsbI2CSharp)
 
