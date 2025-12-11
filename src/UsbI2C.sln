@@ -1,13 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.8.34316.72
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11304.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsbI2C", "UsbI2C\UsbI2C.csproj", "{8BD6B90B-DB06-43E2-89B1-D6DF180FD907}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsbI2cControlPanel", "UsbI2cControlPanel\UsbI2cControlPanel.csproj", "{5419F051-E05F-4336-A3CE-62746A346438}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsbI2C.Test", "UsbI2C.Test\UsbI2C.Test.csproj", "{6723BB57-C515-4C2C-AA93-75DBFB34CA82}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Projektmappenelemente", "{01C5E237-5613-4842-AAEA-65F131634799}"
+	ProjectSection(SolutionItems) = preProject
+		..\common.props = ..\common.props
+		UsbI2CSharp.targets = UsbI2CSharp.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

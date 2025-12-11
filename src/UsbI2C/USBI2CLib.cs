@@ -75,7 +75,7 @@ namespace AndreasReitberger.Interface.UsbI2C
         }
 
         #region Device
-        string _manufacturer;
+        string _manufacturer = string.Empty;
         public string Manufacturer
         {
             get => _manufacturer;
@@ -86,8 +86,8 @@ namespace AndreasReitberger.Interface.UsbI2C
             }
         }
 
-        EepromDefaultContent eeprom;
-        public EepromDefaultContent EEPROM
+        EepromDefaultContent? eeprom;
+        public EepromDefaultContent? EEPROM
         {
             get => eeprom;
             set
@@ -378,7 +378,7 @@ namespace AndreasReitberger.Interface.UsbI2C
             }
         }
 
-        public List<UsbI2cDevice> GetAllDevices(int maxBufferSize = 10)
+        public List<UsbI2cDevice>? GetAllDevices(int maxBufferSize = 10)
         {
             List<FTDI.FT_DEVICE_INFO_NODE> nodes = GetAllDeviceNodes(maxBufferSize);
             return nodes?
@@ -400,7 +400,7 @@ namespace AndreasReitberger.Interface.UsbI2C
 
         public EepromDefaultContent ReadEEPROM(UsbI2cTypes type)
         {
-            EepromDefaultContent eeprom = new EepromDefaultContent();
+            EepromDefaultContent eeprom = new();
             switch (type)
             {
                 case UsbI2cTypes.FT232RL:
@@ -487,10 +487,12 @@ namespace AndreasReitberger.Interface.UsbI2C
             string lengthString = Encoding.ASCII.GetString(new byte[] { (byte)data.Length });
 
             // Create data buffer
-            List<byte> buffer = new List<byte>();
-            buffer.AddRange(Encoding.ASCII.GetBytes("S"));
-            buffer.AddRange(Encoding.ASCII.GetBytes(addressString));    // Add addresss
-            buffer.AddRange(Encoding.ASCII.GetBytes(lengthString));     // Add length
+            List<byte> buffer =
+            [
+                .. Encoding.ASCII.GetBytes("S"),
+                .. Encoding.ASCII.GetBytes(addressString),    // Add addresss
+                .. Encoding.ASCII.GetBytes(lengthString),     // Add length
+            ];
             for (int i = 0; i < data.Length; i++)
             {
                 buffer.Add(data[i]);
@@ -534,10 +536,12 @@ namespace AndreasReitberger.Interface.UsbI2C
             string readAddressString = Encoding.ASCII.GetString(new byte[] { (byte)(slaveAddress + 1) });
             string bytesToReadString = Encoding.ASCII.GetString(new byte[] { (byte)(bytesToRead) });
 
-            List<byte> buffer = new List<byte>();
-            buffer.AddRange(Encoding.ASCII.GetBytes("S"));
-            buffer.AddRange(Encoding.ASCII.GetBytes(addressString));    // Add addresss
-            buffer.AddRange(Encoding.ASCII.GetBytes(lengthString));     // Add length
+            List<byte> buffer =
+            [
+                .. Encoding.ASCII.GetBytes("S"),
+                .. Encoding.ASCII.GetBytes(addressString),    // Add addresss
+                .. Encoding.ASCII.GetBytes(lengthString),     // Add length
+            ];
             for (int i = 0; i < data.Length; i++)
             {
                 buffer.Add(data[i]);
@@ -615,11 +619,11 @@ namespace AndreasReitberger.Interface.UsbI2C
             }
             // Prepare ports and set all to keep (default)
             UsbI2cByte[] ports = new UsbI2cByte[] {
-                new UsbI2cByte(),   // Port A
-                new UsbI2cByte(),   // Port B
-                new UsbI2cByte(),   // Port C
-                new UsbI2cByte(),   // Port D
-                new UsbI2cByte(),   // Port E
+                new(),   // Port A
+                new(),   // Port B
+                new(),   // Port C
+                new(),   // Port D
+                new(),   // Port E
             };
             int portIndex = (int)(output / 8);          // See in which port the target output is 
             int bit = (int)(output - (portIndex * 8));  // Get the bit on the current port
@@ -640,11 +644,11 @@ namespace AndreasReitberger.Interface.UsbI2C
             }
             // Prepare ports and set all to keep (default)
             UsbI2cByte[] ports = new UsbI2cByte[] {
-                new UsbI2cByte(),   // Port A
-                new UsbI2cByte(),   // Port B
-                new UsbI2cByte(),   // Port C
-                new UsbI2cByte(),   // Port D
-                new UsbI2cByte(),   // Port E
+                new(),   // Port A
+                new(),   // Port B
+                new(),   // Port C
+                new(),   // Port D
+                new(),   // Port E
             };
             ports[port].UpdateFromByte(state);
             return SetOutput(slaveAddress, registerAddress, ports[0], ports[1], ports[2], ports[3], ports[4]);
@@ -707,21 +711,22 @@ namespace AndreasReitberger.Interface.UsbI2C
             FTDI.FT_STATUS result = _handler.GetDeviceList(buffer);
             if (result == FTDI.FT_STATUS.FT_OK)
             {
-                List<FTDI.FT_DEVICE_INFO_NODE> devices = new List<FTDI.FT_DEVICE_INFO_NODE>();
-                for (int i = 0; i < buffer.Length; i++)
+                List<FTDI.FT_DEVICE_INFO_NODE> devices = [];
+                for (int i = 0; i < buffer?.Length; i++)
                 {
                     if (buffer?[i] is FTDI.FT_DEVICE_INFO_NODE node)
                     {
-                        devices.Add(buffer[i]);
+                        //devices.Add(buffer[i]);
+                        devices.Add(node);
                     }
                 }
                 return devices;
             }
             else
-                return new List<FTDI.FT_DEVICE_INFO_NODE>();
+                return [];
         }
 
-        bool OpenDeviceNode(FTDI.FT_DEVICE_INFO_NODE device)
+        public bool OpenDeviceNode(FTDI.FT_DEVICE_INFO_NODE device)
         {
             FTDI.FT_STATUS res = _handler.OpenBySerialNumber(device?.SerialNumber);
             return res == FTDI.FT_STATUS.FT_OK;
@@ -871,8 +876,8 @@ namespace AndreasReitberger.Interface.UsbI2C
         byte TristateByteToByte(UsbI2cByte tristateByte, byte currentValue, bool swap = false)
         {
             byte[] result = new byte[1];
-            BitArray conversionByte = new BitArray(new byte[1]);
-            BitArray currentByte = new BitArray(new byte[] { currentValue });
+            BitArray conversionByte = new(new byte[1]);
+            BitArray currentByte = new(new byte[] { currentValue });
             UsbI2cBit[] mask = tristateByte.ToArray();
 
             for (int i = 0; i < currentByte.Length; i++)

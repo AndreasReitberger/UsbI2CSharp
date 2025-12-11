@@ -1,0 +1,26 @@
+<Project>
+    <PropertyGroup>
+		<Version>1.0.2</Version>
+		<NeutralLanguage>en</NeutralLanguage>
+		<RepositoryUrl>https://github.com/AndreasReitberger/UsbI2CSharp</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/AndreasReitberger/UsbI2CSharp</PackageProjectUrl>
+		<RepositoryType>git</RepositoryType>
+        <PackageReleaseNotes>Check GitHub releases for changelog.</PackageReleaseNotes>
+		<Authors>Andreas Reitberger</Authors>
+		<Copyright>Andreas Reitberger</Copyright>
+		<Company>Andreas Reitberger</Company>
+        <LangVersion>preview</LangVersion>
+        <PublishReadyToRun>false</PublishReadyToRun>
+		<Nullable>enable</Nullable>
+
+        <!--Source-Linking-->
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+		<!-- Copy native dll while debugging -->
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
+  </ItemGroup>
+</Project>

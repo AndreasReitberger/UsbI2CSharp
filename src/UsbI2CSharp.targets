@@ -1,0 +1,8 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Reference Include="FTD2XX_NET">
+			<HintPath>$(MSBuildThisFileDirectory)..\lib\FTD2XX_NET.dll</HintPath>
+			<Private>true</Private>
+		</Reference>
+	</ItemGroup>
+</Project>
