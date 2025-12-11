@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AndreasReitberger.Interface.UsbI2C.Models
+﻿namespace AndreasReitberger.Interface.UsbI2C.Models
 {
     public class EepromDefaultContent
     {
         #region Properties
-        public string Manufacturer { get; set; }
-        public string Description { get; set; }
-        public string SerialNumber { get; set; }
+        public string Manufacturer { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string SerialNumber { get; set; } = string.Empty;
         public bool UseExtOsc { get; set; }
         public byte Cbus4 { get; set; }
         public byte Cbus3 { get; set; }

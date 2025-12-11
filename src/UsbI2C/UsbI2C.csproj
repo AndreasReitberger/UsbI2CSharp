@@ -1,31 +1,35 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\common.props" />
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;net6</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <TargetFrameworks>netstandard2.0;net48;net6;net8</TargetFrameworks>
     <PackageId>UsbI2CSharp</PackageId>
-    <Authors>Andreas Reitberger</Authors>
     <Product>UsbI2CSharp</Product>
-    <Copyright>Andreas Reitberger</Copyright>
-    <RepositoryUrl>https://github.com/AndreasReitberger/UsbI2CSharp</RepositoryUrl>
-    <RepositoryType>GitHub</RepositoryType>
     <RootNamespace>AndreasReitberger.Interface.UsbI2C</RootNamespace>
     <AssemblyName>UsbI2cSharp</AssemblyName>
-	<Version>1.0.0</Version>
-	<LangVersion>12</LangVersion>
-
 	<Description>A C# library to communicate with a USB-to-I2C converter</Description>
 	<PackageTags>USB, I2C, FTD2XX, FTD2XX_NET, NET</PackageTags>
 
 	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
+	
+	<!-- Verwaltete Wrapper-Assemblys -->
+	<ItemGroup>
+		<None Include="lib\netstandard2.0\FTD2XX_NET.dll" Pack="true" PackagePath="lib/netstandard2.0" />
+		<None Include="lib\net48\FTD2XX_NET.dll"          Pack="true" PackagePath="lib/net48" />
+		<Reference Include="FTD2XX_NET">
+			<HintPath>..\libs\managed\netstandard2.0\FTD2XX_NET.dll</HintPath>
+			<Private>true</Private>
+		</Reference>
+	</ItemGroup>
 
-  <ItemGroup>
-	<None Include="..\..\README.md" Pack="true" PackagePath="\" />
-    <Reference Include="FTD2XX_NET">
-      <HintPath>..\..\FTD2XX_NET\FTD2XX_NET.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+	<!-- Not needed for runtime, native DLLs
+	<ItemGroup>
+		<None Include="..\UsbI2CSharp.targets" Pack="true" PackagePath="buildTransitive\UsbI2CSharp.targets" />
+	</ItemGroup>
+	-->
 </Project>
